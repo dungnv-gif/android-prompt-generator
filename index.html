@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ultra Prompt Generator</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1e40af, #3b82f6);
+      min-height: 100vh;
+      padding: 30px 15px;
+    }
+    .container {
+      max-width: 1150px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(16px);
+      border-radius: 24px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+    }
+    .header {
+      background: linear-gradient(to right, #1e40af, #2563eb);
+      color: white;
+      padding: 35px;
+      text-align: center;
+    }
+    .content {
+      padding: 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+    .form-group {
+      margin-bottom: 26px;
+    }
+    label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-weight: 600;
+      color: #1f2937;
+      font-size: 15.5px;
+    }
+    .svg-icon {
+      width: 26px;
+      height: 26px;
+      flex-shrink: 0;
+      transition: transform 0.3s;
+    }
+    label:hover .svg-icon {
+      transform: scale(1.15);
+    }
+    input, textarea {
+      width: 100%;
+      padding: 14px 18px;
+      border: 2px solid #e5e7eb;
+      border-radius: 14px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+    input:focus, textarea:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.2);
+      transform: translateY(-2px);
+      outline: none;
+    }
+    textarea { min-height: 110px; resize: vertical; }
+
+    .btn {
+      padding: 16px 28px;
+      font-size: 17px;
+      font-weight: 600;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .btn-primary { background: linear-gradient(to right, #2563eb, #3b82f6); color: white; }
+    .btn-copy { background: #10b981; color: white; }
+    .btn:hover {
+      transform: translateY(-5px) scale(1.03);
+      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.25);
+    }
+    #resultPrompt {
+      width: 100%;
+      height: 380px;
+      background: #f8fafc;
+      border: 2px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 20px;
+      font-family: monospace;
+      font-size: 14.8px;
+      line-height: 1.65;
+      resize: none;
+      transition: background-color 0.4s;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1 style="font-size: 34px; display: flex; align-items: center; justify-content: center; gap: 14px;">
+        <svg class="svg-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+        </svg>
+        Ultra Prompt Generator
+      </h1>
+      <p style="margin-top: 8px; font-size: 18px; opacity: 0.95;">Android Store Listing Prompt</p>
+    </div>
+
+    <div class="content">
+      <div>
+        <div class="form-group">
+          <label>
+            <svg class="svg-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            Mô tả UI
+          </label>
+          <textarea id="Mo_ta_UI">The phone screen displays exactly the provided UI image</textarea>
+        </div>
+
+        <div class="form-group">
+          <label>
+            <svg class="svg-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18v-6m0 0V6m0 6h6m-6 0H6"/></svg>
+            Mockup Điện Thoại
+          </label>
+          <input type="text" id="Mockup_Dien_Thoai" value="Android flagship cao cấp, viền màn hình siêu mỏng, nhìn trực diện">
+        </div>
+
+        <div class="form-group">
+          <label>
+            <svg class="svg-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276L20 10V18H4V6l4.553 2.276L12 6 15 10z"/></svg>
+            Hành động Tay
+          </label>
+          <input type="text" id="Hanh_dong_Tay" value="Không có tay (bay tự do)">
+        </div>
+
+        <div class="form-group">
+          <label>
+            <svg class="svg-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1v-5m10-10l2 2m-2-2v10a1 1 0 01-1 1v-5"/></svg>
+            Background
+          </label>
+          <input type="text" id="Boi_canh_Background" value="Nền Gradient cam trắng, studio lighting tối giản, không có người">
+        </div>
+
+        <div class="form-group">
+          <label>
+            <svg class="svg-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17l1.333-2.667M18 17l-1.333-2.667M12 21v-4m-4-2h8"/></svg>
+            Hoa tiết Trang trí
+          </label>
+          <input type="text" id="Hoa_tiet_Trang_tri" value="Icon 3D nổi bật, đường kẻ mờ trừu tượng, particle nhẹ">
+        </div>
+
+        <div class="form-group">
+          <label>
+            <svg class="svg-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8V5a2 2 0 012-2h2a2 2 0 012-2 2 2 0 01-2-2 2 2 0 01-2-2 2 2 0 01-2-2 2 2 0 01-2-2z"/></svg>
+            Kích thước ảnh
+          </label>
+          <input type="text" id="Kich_Thuoc" value="1024x2208">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div class="form-group">
+            <label>🔖 Tiêu đề</label>
+            <input type="text" id="Title" value="GPS CAMERA">
+          </div>
+          <div class="form-group">
+            <label>📝 Subtitle</label>
+            <input type="text" id="Subtitle" value="Lưu giữ ký ức từng vị trí">
+          </div>
+        </div>
+      </div>
+
+      <!-- Result -->
+      <div>
+        <label style="margin-bottom: 12px; font-weight: 600; color: #1f2937; font-size: 15.5px;">
+          📋 Prompt Kết Quả
+        </label>
+        <textarea id="resultPrompt" readonly></textarea>
+        
+        <div style="display: flex; gap: 16px; margin-top: 30px;">
+          <button id="generateBtn" class="btn btn-primary" style="flex: 1;">
+            🚀 Tạo Prompt
+          </button>
+          <button id="copyBtn" class="btn btn-copy" style="flex: 1;">
+            📋 Copy Prompt
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('generateBtn').addEventListener('click', () => {
+      const Mo_ta_UI = document.getElementById('Mo_ta_UI').value.trim();
+      const Mockup = document.getElementById('Mockup_Dien_Thoai').value.trim();
+      const Hanh_dong = document.getElementById('Hanh_dong_Tay').value.trim();
+      const Background = document.getElementById('Boi_canh_Background').value.trim();
+      const Hoatiet = document.getElementById('Hoa_tiet_Trang_tri').value.trim();
+      const KichThuoc = document.getElementById('Kich_Thuoc').value.trim() || "1024x2208";
+      const Title = document.getElementById('Title').value.trim();
+      const Subtitle = document.getElementById('Subtitle').value.trim();
+
+      const prompt = `A professional Android Store Listing screenshot, ${KichThuoc} resolution. 
+${Mo_ta_UI}. 
+Mockup of ${Mockup}. 
+${Hanh_dong}. 
+${Background}. 
+${Hoatiet}. 
+Text: "${Title}" - "${Subtitle}".
+High-fidelity, 8k resolution, professional app store aesthetic, soft studio lighting, sharp focus --ar ${KichThuoc}`;
+
+      const resultArea = document.getElementById('resultPrompt');
+      resultArea.value = prompt.trim();
+      resultArea.style.backgroundColor = '#ecfdf5';
+      setTimeout(() => resultArea.style.backgroundColor = '#f8fafc', 800);
+    });
+
+    document.getElementById('copyBtn').addEventListener('click', () => {
+      const ta = document.getElementById('resultPrompt');
+      ta.select();
+      document.execCommand('copy');
+      
+      const btn = document.getElementById('copyBtn');
+      const oldText = btn.textContent;
+      btn.textContent = '✅ Đã Copy!';
+      setTimeout(() => btn.textContent = oldText, 2000);
+    });
+  </script>
+</body>
+</html>
